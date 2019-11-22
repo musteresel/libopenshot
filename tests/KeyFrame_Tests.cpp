@@ -88,6 +88,7 @@ TEST(Keyframe_GetValue_For_Bezier_Curve_2_Points)
 	Keyframe kf;
 	kf.AddPoint(openshot::Point(Coordinate(1, 1), BEZIER));
 	kf.AddPoint(openshot::Point(Coordinate(50, 4), BEZIER));
+	std::cerr << "Adding worked" << std::endl;
 
 	// Spot check values from the curve
 	CHECK_CLOSE(1.0f, kf.GetValue(-1), 0.0001);
