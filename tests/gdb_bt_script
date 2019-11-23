@@ -6,4 +6,5 @@ backtrace
 continue
 end
 run
+backtrace
 quit
