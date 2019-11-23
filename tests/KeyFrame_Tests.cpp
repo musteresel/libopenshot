@@ -86,7 +86,9 @@ TEST(Keyframe_GetValue_For_Bezier_Curve_2_Points)
 {
 	// Create a keyframe curve with 2 points
 	Keyframe kf;
+	std::cerr << "Default done" << std::endl;
 	kf.AddPoint(openshot::Point(Coordinate(1, 1), BEZIER));
+	std::cerr << "Point one added" << std::endl;
 	kf.AddPoint(openshot::Point(Coordinate(50, 4), BEZIER));
 	std::cerr << "Adding worked" << std::endl;
 
