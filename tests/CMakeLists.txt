@@ -126,14 +126,14 @@ SET ( OPENSHOT_TEST_FILES
 message (STATUS "Tests enabled, test executable will be built as tests/openshot-test")
 add_executable(openshot-test
 			   tests.cpp
-			   ${OPENSHOT_TEST_FILES} )
+			   KeyFrame_Tests.cpp )
 
 # Link libraries to the new executable
 target_link_libraries(openshot-test openshot ${UNITTEST++_LIBRARY})
 
 ##### RUNNING TESTS (make os_test / make test) #####
 # Hook up the 'make os_test' target to the 'openshot-test' executable
-ADD_CUSTOM_TARGET(os_test COMMAND openshot-test)
+ADD_CUSTOM_TARGET(os_test COMMAND gdb -n -batch -x ${CMAKE_CURRENT_SOURCE_DIR}/gdb_bt_script openshot-test)
 list(APPEND OS_TEST_CMDS "'make os_test'")
 
 # Also hook up 'make test', if possible
