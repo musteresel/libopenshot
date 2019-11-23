@@ -219,8 +219,8 @@ double Keyframe::GetValue(int64_t index)
 		return 0;
 	}
 	std::vector<Point>::iterator candidate =
-		std::lower_bound(begin(Points), end(Points), Point(index, -1), [](Point const & l, Point const & r) {
-															return l.co.X < r.co.X;
+		std::lower_bound(begin(Points), end(Points), index, [](Point const & l, int64_t r) {
+															return l.co.X < r;
 														});
 
 	if (candidate == end(Points)) {
