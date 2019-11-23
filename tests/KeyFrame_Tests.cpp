@@ -36,6 +36,11 @@
 using namespace std;
 using namespace openshot;
 
+TEST(Unittest_Segfault)
+{
+	CHECK_CLOSE(1,2,0.1);
+}
+
 TEST(Keyframe_GetPoint_With_No_Points)
 {
 	// Create an empty keyframe
