@@ -213,6 +213,8 @@ Point Keyframe::GetMaxPoint() {
 // Get the value at a specific index
 double Keyframe::GetValue(int64_t index)
 {
+	std::string log = "GetValue(" + to_string(index) + ")";
+	std::cerr << log << std::endl;
 	if (Points.empty()) {
 		return 0;
 	}
@@ -223,14 +225,20 @@ double Keyframe::GetValue(int64_t index)
 
 	if (candidate == end(Points)) {
 		// index is behind last point
+		log += " => behind last";
+		std::cerr << log << std::endl;
 		return Points.back().co.Y;
 	}
 	if (candidate == begin(Points)) {
 		// index is at or before first point
+		log += " => before first";
+		std::cerr << log << std::endl;
 		return Points.front().co.Y;
 	}
 	if (candidate->co.X == index) {
 		// index is directly on a point
+		log += " => hit point";
+		std::cerr << log << std::endl;
 		return candidate->co.Y;
 	}
 	std::vector<Point>::iterator predecessor = candidate - 1;
@@ -239,14 +247,19 @@ double Keyframe::GetValue(int64_t index)
 
 	// CONSTANT and LINEAR interpolations are fast to compute!
 	if (candidate->interpolation == CONSTANT) {
+		log += " => CONST";
+		std::cerr << log << std::endl;
 		return predecessor->co.Y;
 	}
 	if (candidate->interpolation == LINEAR) {
 		double const diff_Y = candidate->co.Y - predecessor->co.Y;
 		double const diff_X = candidate->co.X - predecessor->co.X;
 		double const slope = diff_Y / diff_X;
+		log += " => LINEAR";
+		std::cerr << log << std::endl;
 		return predecessor->co.Y + slope * (index - predecessor->co.X);
 	}
+	std::cerr << log << " => BEZIER" << std::endl;
 
 	// BEZIER curve!
 	// TODO: use switch instead of if for compiler warning support!
@@ -259,9 +272,12 @@ double Keyframe::GetValue(int64_t index)
 	Coordinate const p2 = Coordinate(p0.X + candidate->handle_left.X * X_diff, p0.Y + candidate->handle_left.Y * Y_diff);
 	Coordinate const p3 = candidate->co;
 
+	std::cerr << log << " => BEZIER => init done" << std::endl;
+
 	double t = 0.5;
 	double t_step = 0.25;
 	do {
+		std::cerr << log << " => BEZIER => iteration @ " << t << std::endl;
 		// Bernstein polynoms
 		double B[4] = {1, 3, 3, 1};
 		double oneMinTExp = 1;
