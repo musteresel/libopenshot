@@ -9,6 +9,7 @@ addons:
   apt:
     packages: &p_common  # Packages common to all Ubuntu builds
     - cmake
+    - gdb
     - swig
     - libopenshot-audio-dev
     - libmagick++-dev
