@@ -136,6 +136,7 @@ set(OPENSHOT_SOURCES
   ChunkReader.cpp
   ChunkWriter.cpp
   Color.cpp
+  ConstantSamplesPerFrameReader.cpp
   Clip.cpp
   ClipBase.cpp
   Coordinate.cpp
@@ -150,6 +151,7 @@ set(OPENSHOT_SOURCES
   FFmpegWriter.cpp
   Fraction.cpp
   Frame.cpp
+  FrameMatching.cpp
   FrameMapper.cpp
 	Json.cpp
   KeyFrame.cpp
